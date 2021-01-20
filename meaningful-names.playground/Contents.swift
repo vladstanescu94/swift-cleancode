@@ -19,14 +19,23 @@ public func getThem() -> [[Int]] {
     return list1
 }
 
-var gameBoard = [[Int]]()
+struct Cell {
+    static let FLAGGED = 4
+    var statusValue: Int
+    
+    func isFlagged() -> Bool {
+        return statusValue == Cell.FLAGGED
+    }
+}
+
+var gameBoard = [Cell]()
 let STATUS_VALUE = 0
 let FLAGGED = 4
 
-public func getFlaggedCells() -> [[Int]] {
-    var flaggedCells = [[Int]]()
+func getFlaggedCells() -> [Cell] {
+    var flaggedCells = [Cell]()
     for cell in gameBoard {
-        if cell[STATUS_VALUE] == FLAGGED {
+        if cell.isFlagged() {
             flaggedCells.append(cell)
         }
     }
