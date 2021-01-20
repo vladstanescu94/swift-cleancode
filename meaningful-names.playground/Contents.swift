@@ -18,3 +18,18 @@ public func getThem() -> [[Int]] {
     }
     return list1
 }
+
+var gameBoard = [[Int]]()
+let STATUS_VALUE = 0
+let FLAGGED = 4
+
+public func getFlaggedCells() -> [[Int]] {
+    var flaggedCells = [[Int]]()
+    for cell in gameBoard {
+        if cell[STATUS_VALUE] == FLAGGED {
+            flaggedCells.append(cell)
+        }
+    }
+    return flaggedCells
+}
+
