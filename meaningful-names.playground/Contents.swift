@@ -102,9 +102,9 @@ for j in 0..<NUMBER_OF_TASKS {
 
 // MARK: - Avoid Encodings
 public struct Part {
-    private var m_dsc: String
+    private var description: String
     
-    mutating func setName(_ name: String) {
-        m_dsc = name
+    mutating func setDescription(_ description: String) {
+        self.description = description
     }
 }
