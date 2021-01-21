@@ -73,3 +73,8 @@ struct DtaRcrd102 {
     private let pszqint: String = "102"
 }
 
+struct Customer {
+    private var generationTimestamp: Date
+    private var modificaitonTimestamp: Date
+    private let recordId: String = "102"
+}
