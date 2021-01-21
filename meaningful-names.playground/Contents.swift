@@ -79,7 +79,7 @@ struct Customer {
     private let recordId: String = "102"
 }
 
-// Use Searchable Names
+// MARK: - Use Searchable Names
 
 var s = 0
 var t = [Int]()
@@ -98,4 +98,13 @@ for j in 0..<NUMBER_OF_TASKS {
     let realTaskDays = taskEstimate[j] * realDaysPerIdealDay
     let realTaskWeeks = realTaskDays / WORK_DAYS_PER_WEEK
     sum += realTaskWeeks
+}
+
+// MARK: - Avoid Encodings
+public struct Part {
+    private var m_dsc: String
+    
+    mutating func setName(_ name: String) {
+        m_dsc = name
+    }
 }
