@@ -87,3 +87,15 @@ var t = [Int]()
 for j in 0..<34 {
     s += (t[j] * 4) / 5
 }
+
+var realDaysPerIdealDay = 4
+let WORK_DAYS_PER_WEEK = 5
+let NUMBER_OF_TASKS = 5
+var taskEstimate = [Int]()
+var sum = 0
+
+for j in 0..<NUMBER_OF_TASKS {
+    let realTaskDays = taskEstimate[j] * realDaysPerIdealDay
+    let realTaskWeeks = realTaskDays / WORK_DAYS_PER_WEEK
+    sum += realTaskWeeks
+}
