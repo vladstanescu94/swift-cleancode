@@ -1,3 +1,4 @@
+import Foundation
 // MARK: - Use Intention-Revealing Names
 
 var d: Int // elapsed time in days
@@ -63,4 +64,12 @@ if O == l {
 } else {
     l = 01;
 } */
+
+// Use Pronunceable Names
+
+struct DtaRcrd102 {
+    private var genymdhms: Date
+    private var modymdhms: Date
+    private let pszqint: String = "102"
+}
 
