@@ -78,3 +78,12 @@ struct Customer {
     private var modificaitonTimestamp: Date
     private let recordId: String = "102"
 }
+
+// Use Searchable Names
+
+var s = 0
+var t = [Int]()
+
+for j in 0..<34 {
+    s += (t[j] * 4) / 5
+}
