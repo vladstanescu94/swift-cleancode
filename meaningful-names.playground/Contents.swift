@@ -42,3 +42,25 @@ func getFlaggedCells() -> [Cell] {
     return flaggedCells
 }
 
+// MARK: - Avoid Disinformation
+
+// Bad names
+let hp: String
+let aix: String
+let sco: String
+
+let accountList: [Int: String] // it's not an actual list
+
+// Beware of small differences
+let XYZControllerForEfficientHandlingOfStrings: Any
+let XYZControllerForEfficientStorageOfStrings: Any
+
+// Dont use lower-case L or uppercase o
+
+/* var a: Int = l;
+if O == l {
+    a = O1;
+} else {
+    l = 01;
+} */
+
