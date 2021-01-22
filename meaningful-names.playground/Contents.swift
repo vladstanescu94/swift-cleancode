@@ -133,3 +133,42 @@ private func printGuessStatistics(candidate: Character, count: Int) {
     
     print(guessMessage)
 }
+
+struct GuessSatisticsMessage {
+    var number: String
+    var verb: String
+    var pluralModifier: String
+    
+    public mutating func make(candidate: Character, count: Int) -> String {
+        createPluralDependentMessageParts(count: count)
+        return "There \(verb) \(number) \(candidate) \(pluralModifier)"
+    }
+    
+    public mutating func createPluralDependentMessageParts(count: Int) {
+        if count == 0 {
+            thereAreNoLetters()
+        } else if count == 1 {
+            thereIsOneLetter()
+        } else {
+            thereAreManyLetters(count: count)
+        }
+    }
+    
+    private mutating func thereAreNoLetters() {
+        number = "no"
+        verb = "are"
+        pluralModifier = "s"
+    }
+    
+    private mutating func thereIsOneLetter() {
+        number = "1"
+        verb = "is"
+        pluralModifier = ""
+    }
+    
+    private mutating func thereAreManyLetters(count: Int) {
+        number = String(count)
+        verb = "are"
+        pluralModifier = "s"
+    }
+}
