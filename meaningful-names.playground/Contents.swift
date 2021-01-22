@@ -108,3 +108,28 @@ public struct Part {
         self.description = description
     }
 }
+
+// MARK: - Add Meaningful Context
+private func printGuessStatistics(candidate: Character, count: Int) {
+    let number: String
+    let verb: String
+    let plurarModifier: String
+    
+    if count == 0 {
+        number = "no"
+        verb = "are"
+        plurarModifier = "s"
+    } else if count == 1 {
+        number = "1"
+        verb = "is"
+        plurarModifier = ""
+    } else {
+        number = String(count)
+        verb = "are"
+        plurarModifier = "s"
+    }
+    
+    let guessMessage = "There \(verb) \(number) \(candidate) \(plurarModifier)"
+    
+    print(guessMessage)
+}
