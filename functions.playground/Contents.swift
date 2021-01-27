@@ -61,3 +61,50 @@ class EmployeeFactoryImpl: EmployeeFactory {
         }
     }
 }
+
+// MARK: - Have no side effects
+
+class Session {
+    static func initialize() {
+        return
+    }
+}
+
+struct Cryptographer {
+    func decrypt(codedPhrase: String, password: String) -> String {
+        return ""
+    }
+}
+enum UserType {
+    case VALID
+    case NULL
+}
+struct User {
+    let type: UserType
+    
+    func getPhraseEncodedByPassword() -> String {
+        return ""
+    }
+}
+class UserGateway {
+    static func findByName(userName: String) -> User {
+        return User(type: .VALID)
+    }
+}
+
+struct UserValidator {
+    private var cryptographer: Cryptographer
+    
+    public func checkPassword(userName: String, password: String) -> Bool {
+        let user = UserGateway.findByName(userName: userName)
+        if user.type != UserType.NULL {
+            let codedPhrase = user.getPhraseEncodedByPassword()
+            let phrase = cryptographer.decrypt(codedPhrase: codedPhrase, password: password)
+            if "Valid Password" == phrase {
+                Session.initialize()
+                return true
+            }
+        }
+        return false
+    }
+}
