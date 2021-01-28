@@ -108,3 +108,19 @@ struct UserValidator {
         return false
     }
 }
+
+// MARK: - Command Query Separation
+
+//Bad way
+func set(attribute: String, value: String) -> Bool { return true }
+
+if set(attribute: "username", value: "vlad") { }
+
+//Better way
+func setAttribute(attribute: String, value:String) { }
+func attributeExists(attribute: String) -> Bool { return true }
+
+if attributeExists(attribute: "username") {
+    setAttribute(attribute: "username", value: "Vlad")
+}
+
