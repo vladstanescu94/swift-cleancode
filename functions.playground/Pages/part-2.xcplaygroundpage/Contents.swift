@@ -2,7 +2,6 @@
 
 // MARK: - Prefer Exceptions to Returning Error Codes
 enum ErrorCodes: Error {
-    case OK
     case ERROR
 }
 
@@ -15,14 +14,14 @@ struct Page {
 }
 
 struct Registry {
-    func deleteReference(_ ref: Any) -> ErrorCodes {
-        return ErrorCodes.OK
+    func deleteReference(_ ref: Any) throws {
+        throw ErrorCodes.ERROR
     }
 }
 
 struct ConfigKeys {
-    func deleteKey(_ key: Any) -> ErrorCodes {
-        return ErrorCodes.OK
+    func deleteKey(_ key: Any) throws {
+        throw ErrorCodes.ERROR
     }
 }
 
@@ -37,24 +36,18 @@ let configKeys = ConfigKeys()
 let logger = Logger()
 let page = Page(name: Name())
 
-func deletePage(page: Page) -> ErrorCodes { return ErrorCodes.OK }
+func deletePage(page: Page) throws { throw ErrorCodes.ERROR }
 
-func delete() -> ErrorCodes {
-    if deletePage(page: page) == ErrorCodes.OK {
-        if registry.deleteReference(page.name) == ErrorCodes.OK {
-            if configKeys.deleteKey(page.name.makeKey()) == ErrorCodes.OK {
-                logger.log("page deleted")
-            } else {
-                logger.log("configKey not deleted")
-            }
-        } else {
-            logger.log("deleteReference from registry failed")
-        }
-    } else {
-        logger.log("delete failed")
-        return ErrorCodes.ERROR
+func delete() {
+    do {
+        try deletePage(page: page)
+        try registry.deleteReference(page.name)
+        try configKeys.deleteKey(page.name.makeKey())
+    } catch ErrorCodes.ERROR {
+        print("Delete failed")
+    } catch {
+        print("Unexpected error \(error)")
     }
-    return ErrorCodes.OK
 }
 
 
