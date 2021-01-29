@@ -1,3 +1,4 @@
+import Foundation
 // MARK: - Explain Yourself in Code
 
 let HOURLY_FLAG: Bool = true
@@ -34,4 +35,17 @@ func compareTo(o: Any) -> Int {
     return 1 // we are greater because we are the right type
 }
 
+// MARK: - Redundant Comments
 
+enum MyError: Error { case error }
+let closed = false
+
+// Utility method that returns when this.closed is true. Throws an exception if the timeout is reached
+func waitForClose(timeoutMillis: Double) throws {
+    if !closed {
+        Thread.sleep(forTimeInterval: timeoutMillis)
+        if !closed {
+            throw MyError.error
+        }
+    }
+}
