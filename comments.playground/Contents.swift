@@ -4,11 +4,16 @@ let HOURLY_FLAG: Bool = true
 struct Employee {
     var flags: Bool
     var age: Int
+    
+    func isEligibleForFullBenefits() -> Bool {
+        if (self.flags && HOURLY_FLAG) && (self.age > 65) {
+            return true
+        }
+        return false
+    }
 }
 
 var employee = Employee(flags: true, age: 20)
 
-// Check to see if the employee is eligible for full benefits
-if (employee.flags && HOURLY_FLAG) && (employee.age > 65) {
-    
-}
+if employee.isEligibleForFullBenefits() { }
+
