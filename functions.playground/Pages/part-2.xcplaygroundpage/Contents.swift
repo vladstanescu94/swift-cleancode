@@ -38,16 +38,20 @@ let page = Page(name: Name())
 
 func deletePage(page: Page) throws { throw ErrorCodes.ERROR }
 
-func delete() {
+func delete(page: Page) {
     do {
-        try deletePage(page: page)
-        try registry.deleteReference(page.name)
-        try configKeys.deleteKey(page.name.makeKey())
+        try deletePageAndAllReferences(page: page)
     } catch ErrorCodes.ERROR {
         print("Delete failed")
     } catch {
         print("Unexpected error \(error)")
     }
+}
+
+func deletePageAndAllReferences(page: Page) throws {
+    try deletePage(page: page)
+    try registry.deleteReference(page.name)
+    try configKeys.deleteKey(page.name.makeKey())
 }
 
 
