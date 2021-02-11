@@ -5,3 +5,14 @@ public struct Point {
     public var x: Double
     public var y: Double
 }
+
+// abstract point
+public protocol PointType {
+    func getX() -> Double
+    func getY() -> Double
+    func setCartesian(x: Double, y: Double) -> Void
+    func getR() -> Double
+    func getTheta() -> Double
+    func setPolar(r: Double, tetha: Double) -> Void
+}
+
