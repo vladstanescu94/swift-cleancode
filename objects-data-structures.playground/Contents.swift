@@ -26,3 +26,44 @@ public protocol Vehicle {
 public protocol AbstractVehicle {
     func getPercentFuelRemaining() -> Double
 }
+
+// MARK: - Data/Object Anti-Symmetry
+
+// procedural shape
+public struct Square {
+    var topLeft: Point
+    var side: Double
+}
+
+public struct Rectangle {
+    var topLeft: Point
+    var height: Double
+    var width: Double
+}
+
+public struct Circle {
+    var center: Point
+    var radius: Double
+}
+
+enum ShapeError: Error {
+    case NoSuchShapeException
+}
+
+public struct Geometry {
+    let PI = 3.141592653589793
+    
+    func area(shape: AnyObject) throws -> Double {
+        if shape is Square {
+            let square = shape as! Square
+            return square.side * square.side
+        } else if shape is Rectangle {
+            let rectangle = shape as! Rectangle
+            return rectangle.height * rectangle.width
+        } else if shape is Circle {
+            let circle = shape as! Circle
+            return PI * circle.radius * circle.radius
+        }
+        throw ShapeError.NoSuchShapeException
+    }
+}
