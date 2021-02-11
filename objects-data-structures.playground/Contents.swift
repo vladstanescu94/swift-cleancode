@@ -16,3 +16,8 @@ public protocol PointType {
     func setPolar(r: Double, tetha: Double) -> Void
 }
 
+// concrete Vehicle
+public protocol Vehicle {
+    func getFuelTankCapacityInGallons() -> Double
+    func getGallonsOfGasoline() -> Double
+}
