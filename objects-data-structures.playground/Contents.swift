@@ -29,41 +29,36 @@ public protocol AbstractVehicle {
 
 // MARK: - Data/Object Anti-Symmetry
 
-// procedural shape
-public struct Square {
-    var topLeft: Point
-    var side: Double
+// polymorphic Shapes
+public protocol Shape {
+    func area() -> Double
 }
 
-public struct Rectangle {
-    var topLeft: Point
-    var height: Double
-    var width: Double
-}
-
-public struct Circle {
-    var center: Point
-    var radius: Double
-}
-
-enum ShapeError: Error {
-    case NoSuchShapeException
-}
-
-public struct Geometry {
-    let PI = 3.141592653589793
+public struct Sqare: Shape {
+    private var topLeft: Point
+    private var side: Double
     
-    func area(shape: AnyObject) throws -> Double {
-        if shape is Square {
-            let square = shape as! Square
-            return square.side * square.side
-        } else if shape is Rectangle {
-            let rectangle = shape as! Rectangle
-            return rectangle.height * rectangle.width
-        } else if shape is Circle {
-            let circle = shape as! Circle
-            return PI * circle.radius * circle.radius
-        }
-        throw ShapeError.NoSuchShapeException
+    public func area() -> Double {
+        return side * side
+    }
+}
+
+public struct Rectangle: Shape {
+    private var topLeft: Point
+    private var height: Double
+    private var width: Double
+
+    public func area() -> Double {
+        return height * width
+    }
+}
+
+public struct Circle: Shape {
+    private var center: Point
+    private var radius: Double
+    private let PI = 3.141592653589793
+
+    public func area() -> Double {
+        return PI * radius * radius
     }
 }
