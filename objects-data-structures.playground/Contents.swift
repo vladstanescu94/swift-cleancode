@@ -62,3 +62,41 @@ public struct Circle: Shape {
         return PI * radius * radius
     }
 }
+
+// MARK: - Data Transfer Objects
+
+public class Address {
+    private var street: String
+    private var streetExtra: String
+    private var city: String
+    private var state: String
+    private var zip: String
+    
+    init(street: String, streetExtra: String, city: String, state: String, zip: String) {
+        self.street = street
+        self.streetExtra = streetExtra
+        self.city = city
+        self.state = state
+        self.zip = zip
+    }
+    
+    public func getStreet() -> String {
+        return street
+    }
+    
+    public func getStreetExtra() -> String {
+        return streetExtra
+    }
+    
+    public func getCity() -> String {
+        return city
+    }
+    
+    public func getState() -> String {
+        return state
+    }
+    
+    public func getZip() -> String {
+        return zip
+    }
+}
