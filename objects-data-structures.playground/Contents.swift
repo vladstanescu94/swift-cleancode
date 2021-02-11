@@ -21,3 +21,8 @@ public protocol Vehicle {
     func getFuelTankCapacityInGallons() -> Double
     func getGallonsOfGasoline() -> Double
 }
+
+// abstract Vehicle
+public protocol AbstractVehicle {
+    func getPercentFuelRemaining() -> Double
+}
