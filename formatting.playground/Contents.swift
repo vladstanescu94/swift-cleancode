@@ -26,3 +26,25 @@ func getFirstNumber(from array: [Int]) -> Int {
 func getRandomNumber() -> Int {
     return Int.random(in: 0...10)
 }
+
+// MARK: - Conceptual Affinity
+
+public class Assert {
+    public static func assertTrue(message: String?, condition: Bool) -> Void {
+        if !condition {
+            assertionFailure(message ?? "")
+        }
+    }
+    
+    public static func assertTrue(condition: Bool) -> Void {
+        assertTrue(message: nil, condition: condition)
+    }
+    
+    public static func assertFalse(message: String?, condition: Bool) -> Void {
+        assertTrue(message: message, condition: !condition)
+    }
+    
+    public static func assertFalse(condition: Bool) -> Void {
+        assertFalse(message: nil, condition: condition)
+    }
+}
