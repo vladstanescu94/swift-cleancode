@@ -1,15 +1,14 @@
 // MARK: - Use Exceptions Rather Than Return Codes
 
-public enum DeviceHandle {
-    case valid
-    case invalid
+public enum DeviceError: Error {
+    case shutDown
 }
 
-func getHandle(for device: Any) -> DeviceHandle { return DeviceHandle.valid }
+struct DeviceHandle { }
 
-public struct DeviceRecord {
-    func getStatus() -> Int { return 0 }
-}
+public struct DeviceRecord { }
+
+
 
 public struct DeviceController {
     let record = DeviceRecord()
@@ -17,24 +16,29 @@ public struct DeviceController {
     let DEV1 = "DEV1"
     
     func sendShutDown() {
-        let handle = getHandle(for: DEV1)
-        
-        if handle != DeviceHandle.invalid {
-            retrieveDeviceRecord(handle: handle)
-            
-            if record.getStatus() != DEVICE_SUSPENDED {
-                pauseDevice(handle: handle)
-                clearDeviceWorkQueue(handle: handle)
-                closeDevice(handle: handle)
-            } else {
-                print("Device suspended. Unable to shut down")
-            }
-        } else {
-            print("Invalid handle for \(DEV1)")
+        do {
+            try shutDown()
+        } catch DeviceError.shutDown {
+            print("ShutDown error")
+        } catch {
+            print("Error")
         }
     }
     
-    func retrieveDeviceRecord(handle: DeviceHandle) { }
+    func shutDown() throws -> Void {
+        let handle = try getHandle(for: DEV1)
+        _ = retrieveDeviceRecord(handle: handle)
+        
+        pauseDevice(handle: handle)
+        clearDeviceWorkQueue(handle: handle)
+        closeDevice(handle: handle)
+    }
+    
+    func getHandle(for device: Any) throws -> DeviceHandle {
+        throw DeviceError.shutDown
+    }
+    
+    func retrieveDeviceRecord(handle: DeviceHandle) -> DeviceRecord { return DeviceRecord() }
     func pauseDevice(handle: DeviceHandle) { }
     func clearDeviceWorkQueue(handle: DeviceHandle) { }
     func closeDevice(handle: DeviceHandle) { }
