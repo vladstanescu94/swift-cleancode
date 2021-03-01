@@ -51,25 +51,43 @@ struct ACMEPort {
     func open() throws { }
 }
 
+struct LocalPort {
+    private var innerPort: ACMEPort
+    
+    init(portNumber: Int) {
+        innerPort = ACMEPort(number: portNumber)
+    }
+    
+    func open() throws {
+        do {
+            try innerPort.open()
+        } catch PortError.DeviceResponseException {
+            throw LocalPortError.DeviceFailure
+        } catch PortError.ATM1212UnlockedException {
+            throw LocalPortError.DeviceFailure
+        } catch PortError.GMXError {
+            throw LocalPortError.DeviceFailure
+        }
+    }
+}
+
 enum PortError: Error {
     case DeviceResponseException
     case ATM1212UnlockedException
     case GMXError
 }
 
-var port = ACMEPort(number: 12)
+enum LocalPortError: Error {
+    case DeviceFailure
+}
 
-func reportPortError(e: PortError) { }
+var port = LocalPort(portNumber: 12)
+
+func reportPortError(e: LocalPortError) { }
 
 do {
     try port.open()
-} catch PortError.DeviceResponseException {
-    reportPortError(e: PortError.DeviceResponseException)
-    print("DeviceResponseException")
-} catch PortError.ATM1212UnlockedException {
-    reportPortError(e: PortError.ATM1212UnlockedException)
-    print("ATM1212UnlockedException")
-} catch PortError.GMXError {
-    reportPortError(e: PortError.GMXError)
-    print("GMXError")
+} catch LocalPortError.DeviceFailure {
+    reportPortError(e: LocalPortError.DeviceFailure)
+    print("Error")
 }
