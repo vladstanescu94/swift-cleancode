@@ -43,3 +43,33 @@ public struct DeviceController {
     func clearDeviceWorkQueue(handle: DeviceHandle) { }
     func closeDevice(handle: DeviceHandle) { }
 }
+
+// MARK: - Define exception classes in terms of a caller's needs
+
+struct ACMEPort {
+    let number: Int
+    func open() throws { }
+}
+
+enum PortError: Error {
+    case DeviceResponseException
+    case ATM1212UnlockedException
+    case GMXError
+}
+
+var port = ACMEPort(number: 12)
+
+func reportPortError(e: PortError) { }
+
+do {
+    try port.open()
+} catch PortError.DeviceResponseException {
+    reportPortError(e: PortError.DeviceResponseException)
+    print("DeviceResponseException")
+} catch PortError.ATM1212UnlockedException {
+    reportPortError(e: PortError.ATM1212UnlockedException)
+    print("ATM1212UnlockedException")
+} catch PortError.GMXError {
+    reportPortError(e: PortError.GMXError)
+    print("GMXError")
+}
